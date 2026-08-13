@@ -75,13 +75,10 @@ Flux étudié : **Navigateur → Django (API/vues) → Base de données**
 
 ## 4. Tableau SSDLC - qualité et sécurité à chaque étape
 
-Pour chaque étape du SDLC, notez l'action concrète que vous appliquez (ou
-allez appliquer) dans SunuSanté.
-
 | Étape | Action qualité/sécurité prévue |
 |---|---|
-| Planification | |
-| Design | |
-| Codage | |
-| Tests | |
-| Déploiement | |
+| **Planification** | Analyse d'impact sur la vie privée (PIA/RGPD) et définition des exigences de sécurité (Shift Left). |
+| **Design** | Modélisation des menaces (STRIDE) et architecture modulaire à faible couplage. |
+| **Codage** | Application des principes SOLID, revues de code systématiques (Pull Requests) et analyse statique SAST (`Bandit`). |
+| **Tests** | Tests unitaires automatisés, tests d'intégration du service tarifaire et vérification des failles OWASP Top 10. |
+| **Déploiement** | Hardening du serveur, désactivation du mode Debug (`DEBUG=False`) et gestion des secrets via variables d'environnement (`.env`). |
