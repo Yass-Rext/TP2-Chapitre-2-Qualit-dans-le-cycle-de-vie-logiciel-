@@ -25,9 +25,27 @@
 
 ### HLD - vue générale
 
-Décrivez ou schématisez (texte, ASCII art, ou lien vers une image) les
-grands blocs de SunuSanté et leurs interactions : navigateur, application
-Django, base de données.
+```mermaid
+graph TD
+    A["<b>Navigateur Web</b><br/>(Client/User)"]
+    
+    subgraph Django ["<b>Serveur Web / Django</b>"]
+        direction TB
+        B1["Middlewares (Auth, CSRF, Security)"]
+        B2["Vues (Request/Response)"]
+        B3["Couche Service (RendezVousService)"]
+    end
+    
+    C[("<b>Base de Données Relationale</b><br/>(PostgreSQL / SQLite)")]
+
+    A <-->|"HTTPS"| Django
+    Django -->|"ORM Django"| C
+
+    classDef client fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef db fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    class A client;
+    class C db;
+```
 
 ### LLD - détails du flux "prendre un rendez-vous"
 
