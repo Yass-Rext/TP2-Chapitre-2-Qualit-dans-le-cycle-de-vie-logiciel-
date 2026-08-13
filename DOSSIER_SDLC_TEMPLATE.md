@@ -1,25 +1,25 @@
 # Dossier SDLC - SunuSanté
 
-Nom / Groupe :
+## Nom / Groupe : Groupe 1: Mamadou Yassarou Diallo, Aliou Dramé and Nafissatou Niang
 
 ## 1. Planification & recueil des besoins
 
-| Contrainte                                     | Réponse |
-|------------------------------------------------|---|
-| Budget                                         | |
-| Juridique (RGPD - données de santé)            | |
-| Technique (hébergement, base de données, etc.) | |
-| Qualité & timing                               | |
+| Contrainte | Réponse |
+|---|---|
+| **Budget** | Maîtrisé / Académique (Open Source) : priorité au développement backend optimisé et à l'usage de briques éprouvées (Django). |
+| **Juridique (RGPD - données de santé)** | Strict respect du traitement des PII (données personnelles) et données médicales : consentement explicite, chiffrement au repos/en transit, droit d'accès et à l'oubli. |
+| **Technique (hébergement, BDD, etc.)** | Architecture Python 3.x / Django, base de données PostgreSQL en production, conteneurisation Docker et HTTPS obligatoire. |
+| **Qualité & timing** | Approche Agile/Scrum avec livraisons itératives, intégration continue (CI/CD) et couverture de tests unitaires minimum de 80%. |
 
 ### Exigences qualité & sécurité posées dès maintenant (Shift Left)
 
-Listez au moins 3 exigences que vous posez **avant** de coder (pas après),
-en vous inspirant de l'exemple du cours (standards de code, MFA/chiffrement
-des données sensibles, conformité RGPD dès la planification).
+1. **Chiffrement et minimisation des données (Privacy by Design)** : Chiffrement des données sensibles en base de données et transfert sous HTTPS/TLS 1.3.
+2. **Gestion stricte des accès et RBAC** : Authentification renforcée pour le personnel médical avec séparation stricte des privilèges (ex: accès `/admin/` limité aux administrateurs).
+3. **Analyse statique continue du code (SAST)** : Intégration de linters (`Flake8`, `Black`) et d'outils de détection de vulnérabilités (`Bandit`, `pip-audit`) dès l'étape de développement.
 
-1.
-2.
-3.
+---
+
+
 
 ## 2. Conception (HLD / LLD)
 
