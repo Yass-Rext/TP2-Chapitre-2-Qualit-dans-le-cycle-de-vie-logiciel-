@@ -49,8 +49,14 @@ graph TD
 
 ### LLD - détails du flux "prendre un rendez-vous"
 
-Décrivez le déroulé précis : quelles données envoyées, quel format, quelles
-étapes de validation, quelle réponse renvoyée.
+1. **Requête HTTP POST** : Le navigateur envoie `patient_id`, `date_heure` et `motif` via HTTPS à `/rendezvous/`.
+2. **Validation (`RendezVousForm`)** : Django valide le type des données, le jeton CSRF et vérifie l'existence du patient.
+3. **Traitement Métier (`RendezVousService`)** : 
+   - Appelle `TarifCalculator` pour appliquer les règles métiers (tarif de base, majoration weekend, réduction VIP).
+   - Instancie et sauvegarde l'objet `RendezVous` en BDD avec son prix définitif calculé.
+4. **Réponse HTTP** : Django renvoie une redirection HTTP 302 vers la facture ou effectue un rendu de la page de confirmation.
+
+---
 
 ## 3. Threat Modeling - méthode STRIDE
 
