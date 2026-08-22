@@ -7,10 +7,12 @@
 
 
 from datetime import date
-
 from django.test import TestCase
+from .services import TarifCalculator, RendezVousService
+from .models import RendezVous, TypeConsultation
+from patients.models import Patient
+from decimal import Decimal
 
-from .services import TarifCalculator
 
 
 class TarifCalculatorTest(TestCase):
@@ -86,3 +88,92 @@ class TarifCalculatorTest(TestCase):
         )
 
         self.assertEqual(prix, 5000)
+        
+        
+class RendezVousServiceTest(TestCase):
+
+    def setUp(self):
+        self.patient = Patient.objects.create(
+            nom="Ndiaye",
+            prenom="Awa",
+            email="awa@example.com",
+            est_vip=False
+        )
+
+        self.service = RendezVousService()
+
+    def test_creer_rendez_vous(self):
+        rdv = self.service.creer_rendez_vous(
+            patient=self.patient,
+            type_consultation=TypeConsultation.GENERALISTE,
+            date_consultation=date(2026, 7, 21)
+        )
+
+        self.assertIsNotNone(rdv.pk)
+        self.assertEqual(rdv.patient, self.patient)
+        self.assertEqual(
+            rdv.type_consultation,
+            TypeConsultation.GENERALISTE
+        )
+        self.assertEqual(
+            rdv.date,
+            date(2026, 7, 21)
+        )
+        self.assertEqual(rdv.prix, Decimal("5000"))
+
+    def test_creer_rendez_vous_patient_vip_weekend(self):
+        patient_vip = Patient.objects.create(
+            nom="Fall",
+            prenom="Moussa",
+            email="moussa@example.com",
+            est_vip=True
+        )
+
+        rdv = self.service.creer_rendez_vous(
+            patient=patient_vip,
+            type_consultation=TypeConsultation.URGENCE,
+            date_consultation=date(2026, 7, 25)
+        )
+
+        self.assertEqual(rdv.prix, Decimal("16200"))
+
+    def test_facturer_patient(self):
+        self.service.creer_rendez_vous(
+            patient=self.patient,
+            type_consultation=TypeConsultation.GENERALISTE,
+            date_consultation=date(2026, 7, 21)
+        )
+
+        self.service.creer_rendez_vous(
+            patient=self.patient,
+            type_consultation=TypeConsultation.SPECIALISTE,
+            date_consultation=date(2026, 7, 21)
+        )
+
+        total = self.service.facturer_patient(self.patient)
+
+        self.assertEqual(total, Decimal("15000"))
+
+    def test_facturer_patient_ne_prend_que_ses_rendez_vous(self):
+        autre_patient = Patient.objects.create(
+            nom="Diop",
+            prenom="Fatou",
+            email="fatou@example.com",
+            est_vip=False
+        )
+
+        self.service.creer_rendez_vous(
+            patient=self.patient,
+            type_consultation=TypeConsultation.GENERALISTE,
+            date_consultation=date(2026, 7, 21)
+        )
+
+        self.service.creer_rendez_vous(
+            patient=autre_patient,
+            type_consultation=TypeConsultation.URGENCE,
+            date_consultation=date(2026, 7, 21)
+        )
+
+        total = self.service.facturer_patient(self.patient)
+
+        self.assertEqual(total, Decimal("5000"))

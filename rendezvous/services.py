@@ -1,5 +1,7 @@
 from datetime import date
 
+from .models import RendezVous
+
 
 class TarifCalculator:
 
@@ -41,3 +43,35 @@ class TarifCalculator:
         )
 
         return prix
+    
+
+class RendezVousService:
+
+    def __init__(self):
+        self.tarif_calculator = TarifCalculator()
+
+    def creer_rendez_vous(
+        self,
+        patient,
+        type_consultation,
+        date_consultation
+    ):
+        prix = self.tarif_calculator.calculer(
+            type_consultation,
+            date_consultation,
+            patient.est_vip
+        )
+
+        return RendezVous.objects.create(
+            patient=patient,
+            type_consultation=type_consultation,
+            date=date_consultation,
+            prix=prix,
+        )
+        
+    def facturer_patient(self, patient):
+        rendez_vous = RendezVous.objects.filter(
+            patient=patient
+        )
+
+        return sum(rdv.prix for rdv in rendez_vous)
