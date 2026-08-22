@@ -75,3 +75,5 @@ class RendezVousService:
         )
 
         return sum(rdv.prix for rdv in rendez_vous)
+    
+# Test unitaire pour le service RendezVousService et le calculateur de tarifs done
