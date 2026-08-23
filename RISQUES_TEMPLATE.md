@@ -8,7 +8,7 @@
 
 **Le modèle Patient (et ses rendez-vous associés) contient-il un risque important, modéré ou faible au sens du chapitre 2 ?**  
 **Important**
-
+    
 **Justification :**  
 Le modèle `Patient` contient des données personnelles permettant d'identifier les patients, notamment le nom, le prénom et l'adresse email. De plus, il est directement associé aux rendez-vous, ce qui peut révéler qu'une personne fréquente une clinique ainsi que certains éléments sur sa prise en charge. Une fuite, une modification non autorisée ou une perte de ces données pourrait donc avoir un impact important sur la confidentialité des patients et sur la réputation de SunuSanté.
 

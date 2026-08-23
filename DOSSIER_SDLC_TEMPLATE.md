@@ -6,10 +6,11 @@
 
 | Contrainte | Réponse |
 |---|---|
-| **Budget** | Maîtrisé / Académique (Open Source) : priorité au développement backend optimisé et à l'usage de briques éprouvées (Django). |
-| **Juridique (RGPD - données de santé)** | Strict respect du traitement des PII (données personnelles) et données médicales : consentement explicite, chiffrement au repos/en transit, droit d'accès et à l'oubli. |
-| **Technique (hébergement, BDD, etc.)** | Architecture Python 3.x / Django, base de données PostgreSQL en production, conteneurisation Docker et HTTPS obligatoire. |
-| **Qualité & timing** | Approche Agile/Scrum avec livraisons itératives, intégration continue (CI/CD) et couverture de tests unitaires minimum de 80%. |
+| **Budget** | Budget maîtrisé dans un contexte académique : priorité aux technologies Open Source et aux solutions éprouvées afin de limiter les coûts de licence, de développement et de maintenance. Django est retenu comme framework principal car il fournit de nombreux mécanismes intégrés pour le développement web et la sécurité. |
+| **Juridique (RGPD - données de santé)** | SunuSanté manipule des données personnelles et potentiellement sensibles liées aux patients. Le système doit donc respecter les principes de protection des données : minimisation des données collectées, contrôle des accès, authentification des utilisateurs autorisés, protection des données en transit et au repos, traçabilité des actions sensibles et gestion des droits des personnes. |
+| **Technique (hébergement, BDD, etc.)** | Architecture web basée sur Python et Django. SQLite est acceptable pour le développement et le TP, mais une base de données adaptée à la production, comme PostgreSQL, devra être envisagée. Le déploiement devra utiliser HTTPS, une gestion sécurisée des secrets via des variables d'environnement et une configuration séparée entre les environnements de développement et de production. |
+| **Qualité & sécurité (Shift Left)** | Les exigences de qualité et de sécurité doivent être définies dès la planification et non ajoutées uniquement à la fin du projet. Elles incluent notamment : validation des données, gestion des erreurs, séparation des responsabilités, tests automatisés, objectif de couverture sur la logique métier, revue de code, analyse des dépendances et identification des risques de sécurité avant le développement. |
+| **Qualité & timing** | Approche itérative inspirée d'Agile/Scrum avec des livraisons fréquentes. Chaque fonctionnalité doit être accompagnée de tests et validée avant intégration. Une intégration continue peut exécuter automatiquement les tests et contrôles de qualité à chaque modification. Un objectif de couverture de 70 à 80 % minimum peut être visé pour la logique métier, tout en privilégiant la pertinence des tests plutôt que la recherche artificielle de 100 % de couverture. |
 
 ### Exigences qualité & sécurité posées dès maintenant (Shift Left)
 
