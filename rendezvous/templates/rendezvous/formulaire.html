@@ -16,7 +16,9 @@
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
-                    <li class="{{ message.tags }}">{{ message }}</li>
+                    <li class="{{ message.tags }}">
+                        {{ message }}
+                    </li>
                 {% endfor %}
             </ul>
         {% endif %}
@@ -24,25 +26,47 @@
         <form method="post" id="form-rdv" novalidate>
             {% csrf_token %}
 
-            <label for="patient_id">Patient</label>
-            <select name="patient_id" id="patient_id" required>
-                <option value="">— Choisir —</option>
-                {% for patient in patients %}
-                    <option value="{{ patient.id }}">{{ patient.prenom }} {{ patient.nom }}</option>
-                {% endfor %}
-            </select>
+            <label for="{{ form.patient.id_for_label }}">
+                Patient
+            </label>
 
-            <label for="type_consultation">Type de consultation</label>
-            <select name="type_consultation" id="type_consultation" required>
-                {% for valeur, libelle in types %}
-                    <option value="{{ valeur }}">{{ libelle }}</option>
-                {% endfor %}
-            </select>
+            {{ form.patient }}
 
-            <label for="date">Date</label>
-            <input type="date" name="date" id="date" required>
+            {% if form.patient.errors %}
+                <div class="error">
+                    {{ form.patient.errors }}
+                </div>
+            {% endif %}
 
-            <button type="submit">Confirmer le rendez-vous</button>
+
+            <label for="{{ form.type_consultation.id_for_label }}">
+                Type de consultation
+            </label>
+
+            {{ form.type_consultation }}
+
+            {% if form.type_consultation.errors %}
+                <div class="error">
+                    {{ form.type_consultation.errors }}
+                </div>
+            {% endif %}
+
+
+            <label for="{{ form.date.id_for_label }}">
+                Date
+            </label>
+
+            {{ form.date }}
+
+            {% if form.date.errors %}
+                <div class="error">
+                    {{ form.date.errors }}
+                </div>
+            {% endif %}
+
+            <button type="submit">
+                Confirmer le rendez-vous
+            </button>
         </form>
     </main>
 
