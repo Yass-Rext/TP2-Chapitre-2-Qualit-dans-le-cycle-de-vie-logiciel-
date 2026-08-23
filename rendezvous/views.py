@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from patients.models import Patient
 
 from .forms import RendezVousForm
-from .models import TypeConsultation
+# from .models import TypeConsultation
 from .services import RendezVousService
 
 
@@ -49,7 +49,6 @@ def prendre_rendez_vous(request):
         "rendezvous/formulaire.html",
         {
             "form": form,
-            "types": TypeConsultation.choices,
         },
     )
 
